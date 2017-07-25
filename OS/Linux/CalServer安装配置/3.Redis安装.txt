@@ -1,0 +1,65 @@
+JDK 7										
+Redis 3.2										
+										
+1、上傳安裝包到RedisServer										
+										
+										
+										
+										
+										
+										
+										
+										
+2、安裝JDK7										
+  2.1、解壓jdk gz包										
+	tar -xvzf jdk-7u79-linux-x64.gz 									
+  2.2、找到解壓目錄										
+	Jdk的主目录		/software/jdk1.7.0_79							
+	jdk的bin目录		/software/jdk1.7.0_79/bin							
+	jdk的lib目录		/software/jdk1.7.0_79/lib							
+										
+										
+										
+										
+										
+  2.3、配置java環境變量										
+	vi /etc/profile									
+		在profile最後添加下面三行配置信息								
+		JAVA_HOME=/software/jdk1.7.0_79								
+		PATH=$JAVA_HOME/bin:$PATH								
+		CLASSPATH=.:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar								
+	ESC -> :wq 保存退出									
+  2.4、重新加載profile文件使修改生效										
+	source /etc/profile									
+  2.5、驗證JDK安裝結果										
+	java -version									
+										
+3、安裝Redis										
+  3.1、解壓Redis gz包										
+	cd /software									
+	tar -zxzf redis-3.2.1.tar.gz									
+  3.2、編譯并安裝										
+	cd redis-3.2.1									
+	make									
+	cd src									
+	make install									
+  3.3、把下面redis.conf上傳到Server并覆蓋原文件(/software/redis-3.2.1/redis.conf)									修改內容（右邊是修改后）	
+										監聽Server。修改前，只監聽本機的連接。修改以後，可以監聽其他Server的連接（從其他Server訪問）
+										
+										開啟以後，可以通過後台方式啟動redis
+										
+										設定password
+  3.4、執行redis啟動命令										
+	/software/redis-3.2.1/src/redis-server /software/redis-3.2.1/redis.conf									
+  3.5、進入redis客戶端并嘗試進行set和get操作										
+	/software/redis-3.2.1/src/redis-cli									
+	auth cms		 --如果有密碼							
+	set a b									
+	get a									
+  3.6、redis其他命令										
+	關閉redis		pkill redis-server							
+	查看redis端口情況		netstat -tunpl|grep 6379							
+	設定密碼		redis不存在用戶名，只有一個連接密碼，在redis.conf中設定，設定后需要重啟redis才會生效（關閉后再開啟）							
+  3.7、如果外網無法訪問，可以從下面兩個方面考慮										
+	a、firewall是否會阻攔									
+	b、redis.conf中bind屬性是否注釋掉									

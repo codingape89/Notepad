@@ -1,0 +1,172 @@
+JDK 7							
+Tomcat 							
+Erlang							
+RabbitMQ							
+							
+1、上傳安裝包到RedisServer							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+2、安裝JDK7							
+  2.1、解壓jdk gz包							
+	tar -xvzf jdk-7u79-linux-x64.gz 						
+  2.2、找到解壓目錄							
+	Jdk的主目录		/software/jdk1.7.0_79				
+	jdk的bin目录		/software/jdk1.7.0_79/bin				
+	jdk的lib目录		/software/jdk1.7.0_79/lib				
+							
+							
+							
+							
+							
+  2.3、配置java環境變量							
+	vi /etc/profile						
+		在profile最後添加下面三行配置信息					
+		JAVA_HOME=/software/jdk1.7.0_79					
+		PATH=$JAVA_HOME/bin:$PATH					
+		CLASSPATH=.:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar					
+	ESC -> :wq 保存退出						
+  2.4、重新加載profile文件使修改生效							
+	source /etc/profile						
+  2.5、驗證JDK安裝結果							
+	java -version						
+							
+							
+3、安裝Tomcat							
+  3.1、解壓Tomcat gz包							
+	tar -zxvf apache-tomcat-5.5.26.tar.gz						
+  3.2、設定classpath							
+	cd /software/apache-tomcat-5.5.26/bin						
+	vi setclasspath.sh						
+	在對應位置添加下面語句						
+		JAVA_HOME=/software/jdk1.7.0_79					
+		PATH=$JAVA_HOME/bin:$PATH					
+		CLASSPATH=.:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar					
+3.3、執行啟動命令							
+		cd /software/apache-tomcat-5.5.26/bin					
+	啟動命令	./startup.sh					
+	(停止命令)	./shutdown.sh					
+3.4、查看日誌							
+	cd /software/apache-tomcat-5.5.26/logs						
+	tail -f catalina.out						
+							
+							
+4、安裝erlang							
+  4.1、解壓縮erlang安裝包							
+	tar zxvf otp_src_19.3.tar.gz						
+  4.2、安裝所需要基礎包							
+	yum -y install ncurses-devel						
+	yum -y install unixODBC-devel						
+	yum -y install openssl-devel						
+	yum -y install gcc-c++						
+  4.3、配置安裝路徑信息，并檢驗安裝包及安裝環境							
+	cd /software/otp_src_19.3						
+	./configure -prefix=/software/erlang						
+  4.4、編譯及安裝							
+	make && make install						
+  4.5、設定環境變量							
+	vi /etc/profile						
+		在文件最後加上					
+		#set erlang environment					
+		export PATH=$PATH:/software/erlang/bin					
+	source /etc/profile						
+  4.6、驗證安裝結果							
+	erl						
+							
+							
+5、安裝rabbitmq							
+  5.1、上傳rabbitmq安裝包							
+	rabbitmq-server-generic-unix-3.6.9.tar.xz						
+  5.2、執行命令解壓安裝包							
+	tar -xvf rabbitmq-server-generic-unix-3.6.9.tar.xz						
+  5.3、設定環境變量							
+	vi /etc/profile						
+		在文件最後加上					
+		#set rabbitmq environment					
+		export PATH=$PATH:/software/rabbitmq-server-3.6.9/sbin					
+	source /etc/profile						
+  5.4、打開網頁監控模式							
+	cd /software/rabbitmq_server-3.6.9/sbin/						
+	./rabbitmq-plugins enable rabbitmq_management						
+  5.5、啟動rabbitmq服務							
+		cd /software/rabbitmq_server-3.6.9/sbin/					
+	後台啟動	./rabbitmq-server -detached				前台啟動	./rabbitmq-server start
+	關閉服務	./rabbitmqctl stop					
+  5.6、通過端口查看啟動情況							
+	netstat -tnlp|grep 5672						
+  5.7、創建外網訪問用戶（創建用戶后需要重啟服務才生效）							
+		 --需要RabbitMQ Server啟動才可以執行下面命令					
+	列出用戶	./rabbitmqctl list_users				修改密碼	./rabbitmqctl change_password cms cms1
+	創建用戶	./rabbitmqctl add_user cms cms				刪除用戶	./rabbitmqctl delete_user cms
+	賦予權限	./rabbitmqctl set_user_tags cms administrator					
+	分配權限	./rabbitmqctl set_permissions -p "/" cms ".*" ".*" ".*"					
+  5.8、驗證網頁監視器登錄結果							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+6、把CalServer的代碼放到TomCat下面							
+  6.1、在 /software/apache-tomcat-5.5.26/webapps 目錄下面創建 PCMS_CalServer 的文件夾							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+							
+  6.2、把CalServer更新包中ui下面的內容都copy到新建目錄中							
+	左邊是更新包位置，右邊是MQServer-Tomcat位置						
+							
+							
+							
+							
+							
+							
+  6.3、把對應的DB Connection更新到CalServer路徑下							
+	這三個更新包放到了 UAT Path 中						

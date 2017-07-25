@@ -1,0 +1,28 @@
+
+先切换到sbin目录下
+cd C:\Program Coding\RabbitMQ Server\rabbitmq_server-3.6.6\sbin
+
+安装配置
+安装：rabbitmq-service install
+安装web插件：rabbitmq-plugins enable rabbitmq_management
+已安装插件：rabbitmq-plugins list
+启动：rabbitmq-service start
+停止：rabbitmq-service stop
+
+用户操作
+列出用戶：rabbitmqctl list_users
+創建用戶：rabbitmqctl add_user [username] [password]
+賦予權限：rabbitmqctl set_user_tags [username] administrator
+分配權限：rabbitmqctl set_permissions -p "/" [username] ".*" ".*" ".*"
+修改密碼：rabbitmqctl change_password [username] [passwordnew]
+刪除用戶：rabbitmqctl delete_user [username]
+重置所有：rabbitmqctl reset
+
+使用查询
+列出所有queue：rabbitmqctl list_queues
+列出指定queue的信息：rabbitmqctl list_queues [the queue name] messages_ready messages_unacknowledged
+列出所有exchange：rabbitmqctl list_exchanges
+列出所有bindin：rabbitmqctl list_bindings
+
+WEB控制端网页控制台：http://localhost:15672/
+登录账号默认：guest/guest ，也可使用创建的新账号

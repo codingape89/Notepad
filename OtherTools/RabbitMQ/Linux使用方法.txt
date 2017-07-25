@@ -1,0 +1,14 @@
+
+先切换到sbin目录下
+cd /software/rabbitmq_server-3.6.9/sbin
+
+啟動	./rabbitmq-server -detached
+關閉	./rabbitmqctl stop
+列出用戶	./rabbitmqctl list_users
+創建用戶	./rabbitmqctl add_user [username] [password]
+賦予權限	./rabbitmqctl set_user_tags [username] administrator
+分配權限	./rabbitmqctl set_permissions -p "/" [username] ".*" ".*" ".*"
+修改密碼	./rabbitmqctl change_password [username] [passwordnew]
+刪除用戶	./rabbitmqctl delete_user [username]
+重置所有	./rabbitmqctl reset
+監控界面	http://10.175.60.120:15672

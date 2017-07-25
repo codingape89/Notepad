@@ -1,0 +1,34 @@
+1、使用光盤安裝linux			
+			
+2、設定static ip address			
+  2.1、查看系統IP設定文件			
+	cd /etc/sysconfig/network-scripts/		
+	ls		
+		有下面兩個ifcfg文件。Ifcfg-lo不需要修改，另外一個文件需要修改	
+		ifcfg-ens32	
+		ifcfg-lo	
+  2.2、在ifcfg-ens32中修改IP設定，并添加IP地址信息			
+	vi ifcfg-ens32		
+	修改屬性	BOOTPROTO=dhcp	
+		ONBOOT=no	
+	添加屬性	IPADDR=XXX.XXX.XXX.XXX #静态IP	
+		GATEWAY=XXX.XXX.XXX.XXX #默认网关	
+		NETMASK=XXX.XXX.XXX.XXX #子网掩码	
+		DNS1=XXX.XXX.XXX.XXX #DNS 配置	
+  2.3、重启NetService使设定生效			
+	service network restart		
+			
+3、Firewall			
+  3.1、如果是RedHat 7.0以上版本，需要先禁用系統自帶的FireWall			
+	systemctl stop firewalld		
+	systemctl mask firewalld		
+  3.2、yum安裝firewall			
+	yum -y install iptables		
+	yum -y install iptables-services		
+  3.3、關閉iptables（在後續安裝Tomcat、Redis、RabbitMQ的時候，需要配置iptables，使其他機器可以訪問本機對應端口）			
+	systemctl enable iptables		
+	service iptables stop		
+			
+4、安裝gcc			
+	yum -y install gcc		
+	yum -y install gcc-c++		
