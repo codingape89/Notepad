@@ -1,0 +1,31 @@
+Server	Soft	Active	Command
+"MQServer
+(10.175.60.120)"	Tomcat	啟動	/software/apache-tomcat-5.5.26/bin/startup.sh
+		關閉	/software/apache-tomcat-5.5.26/bin/shutdown.sh
+		日誌	tail -f /software/apache-tomcat-5.5.26/logs/catalina.out
+		地址	http://10.175.60.120:8080/
+	RabbitMQ	啟動	/software/rabbitmq_server-3.6.9/sbin/rabbitmq-server -detached
+		關閉	/software/rabbitmq_server-3.6.9/sbin/rabbitmqctl stop
+		列出用戶	/software/rabbitmq_server-3.6.9/sbin/rabbitmqctl list_users
+		創建用戶	/software/rabbitmq_server-3.6.9/sbin/rabbitmqctl add_user [username] [password]
+		賦予權限	/software/rabbitmq_server-3.6.9/sbin/rabbitmqctl set_user_tags [username] administrator
+		分配權限	/software/rabbitmq_server-3.6.9/sbin/rabbitmqctl set_permissions -p "/" [username] ".*" ".*" ".*"
+		修改密碼	/software/rabbitmq_server-3.6.9/sbin/rabbitmqctl change_password [username] [passwordnew]
+		刪除用戶	/software/rabbitmq_server-3.6.9/sbin/rabbitmqctl delete_user [username]
+		重置所有	/software/rabbitmq_server-3.6.9/sbin/rabbitmqctl reset
+		監控界面	http://10.175.60.120:15672
+"RedisServer
+(10.175.60.121)"	Redis	啟動服務	/software/redis-3.2.1/src/redis-server /software/redis-3.2.1/redis.conf
+		關閉	pkill redis-server
+		端口	netstat -tunpl|grep 6379
+		密碼	"vi /software/redis-3.2.1/redis.conf
+   中修改
+requirepass XXXX"
+		啟動客戶端	/software/redis-3.2.1/src/redis-cli
+			
+			
+			http://localhost:8080/PCMS_CalServer/servlet/TransMosServlet?jsonStr={SYSTEM:'CMS',TRANCHANNEL:'1',TRANTIME:'00000000',TRANNO:'00000000000000',TRANCODE:'CALCOMPENSATION',MANAGECOM:'2',USERCODE:'001',PASSWORD:'',LOCALE:'en',WageNo:'201702',IndexType:'01',Operator:'CMS',ManageCom:'2',BranchType:'1'}
+			
+			http://10.175.60.120:8080/PCMS_CalServer/servlet/TransMosServlet?jsonStr={SYSTEM:'CMS',TRANCHANNEL:'1',TRANTIME:'00000000',TRANNO:'00000000000000',TRANCODE:'CALCOMPENSATION',MANAGECOM:'2',USERCODE:'001',PASSWORD:'',LOCALE:'en',WageNo:'201702',IndexType:'01',Operator:'CMS',ManageCom:'2',BranchType:'1'}
+			
+			http://10.175.60.116:8080/PCMS_CalServer/servlet/TransMosServlet?jsonStr={SYSTEM:'CMS',TRANCHANNEL:'1',TRANTIME:'00000000',TRANNO:'00000000000000',TRANCODE:'CALCOMPENSATION',MANAGECOM:'2',USERCODE:'001',PASSWORD:'',LOCALE:'en',WageNo:'201702',IndexType:'01',Operator:'CMS',ManageCom:'2',BranchType:'1'}
