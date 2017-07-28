@@ -7,3 +7,7 @@
 问题：编译PCMS_CalServer失败，提示 Stackoverflow （堆栈溢出）
 处理：Setting中修改编译方式为Eclipse（默认为javac）
 备注：jdk1.6 和 jdk1.8 都可以，但是jdk1.7 不行，很奇怪
+
+问题：鼠标悬停提示api信息
+处理：setting -> Show quick doc on mouse move
+

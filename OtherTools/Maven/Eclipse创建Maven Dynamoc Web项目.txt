@@ -1,0 +1,17 @@
+1、创建Maven Project，Artifact Id选择 maven-archetype-webapp
+
+
+2 更改class路径
+右键项目，Java Build Path -> Source
+下面应该有4个文件夹。src/main/java，src/main/resources，src/test/java ，src/test/resources。
+双击每个文件夹的Output folder，选择路径。
+src/main/java，src/main/resources，选择target/classes;
+src/test/java ，src/test/resources, 选择target/test-classes;
+选上Allow output folders for source folders.（如果没有选上的话）
+
+3、project Facets切换成3.0发现报错
+这是因为新建项目的时候用了maven-artchetype-webapp
+由于这个catalog比较老，用的servlet还是2.3的
+修改文件
+	org.eclipse.jdt.core.prefs   所有1.5改成1.7
+	org.eclipse.wst.common.project.facet.core.xml 所有1.5改成1.7,  2.3改成3.0
