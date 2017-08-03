@@ -1,0 +1,78 @@
+如果项目内的jar包和tomcat jar包冲突（servlet.jar servlet-api.jar等）
+在context.xml中添加下面代码可使tomcat运行时优先加载项目的jar包，保证项目的正常运行
+
+<Loader delegate="true"/>
+
+
+WebSphere上url传值中文乱码
+
+http://guxing025-163-com.iteye.com/blog/852852
+was控制台>应用程序服务器 > server1 > 进程定义 > Java 虚拟机，通用 JVM 参数中配置 -Dclient.encoding.override=UTF-8
+
+备份：
+-Dfile.encoding=UTF-8 -Ddefault.client.encoding=UTF-8
+
+--------------------------------------------------------------------------------
+WebSphere中处理URL传参中文乱码问题
+
+import java.net.URLDecoder; 解码
+import java.net.URLEncoder; 编码
+前端js编码
+encodeURI(encodeURI(""))
+服务器设置字符集
+request.setCharacterEncoding("utf-8");
+对汉字进行解码
+String name  = URLDecoder.decode(request.getParameter("name"),"UTF-8");
+TOMCAT/WEBSPHERE下均通过测试.
+
+--------------------------------------------------------------------------------
+web.xml定义session自动超时
+
+    <session-config>
+        <session-timeout>20</session-timeout>
+    </session-config>
+单位：分钟
+
+--------------------------------------------------------------------------------
+查看Java heap space大小
+
+文件中查看方式
+     /usr/IBM/WebSphere/AppServer85/profiles/PCMSapp/config/cells/PCMSCell/nodes/MLCMSAPUA-was85-node/servers/PCMSINserver1/Server.xml
+     查找关键字：jvmEntries
+     示例：initialHeapSize="1024" maximumHeapSize="1024"
+Websphere中查看方式
+     应用程序服务器/server1/进程定义/java 虚拟机
+     初始堆大小/最大堆大小
+
+--------------------------------------------------------------------------------
+本机websphere启动及关闭命令
+
+Windows
+cd F:\Wrokspace_IBM\WebSphere\AppServer\profiles\AppSrv01\bin
+startServer server1 -profileName AppSrv01
+stopServer server1 -profileName AppSrv01
+Linux
+cd /opt/IBM/WebSphere/AppServer/profiles/AppSrv01/bin
+./startServer.sh server1 -profileName AppSrv01
+./stopServer.sh server1 -profileName AppSrv01
+
+启动失败有可能是因为过期了，只需要把 IBM\WebSphere\AppServer\properties\was.license 删掉即可再用60天
+--长远一点，删除was.license后，把系统时间调到N年后，然后启动服务器，生成was.license后，关闭服务器，再把时间调回来，这样就是N年后+60天到期了
+
+日志位置
+cd /opt/IBM/WebSphere/AppServer/profiles/AppSrv01/logs/server1
+tail -f SystemOut.log
+
+--------------------------------------------------------------------------------
+删除概要文件命令
+
+manageprofiles.bat -delete -profileName AppSrv01
+
+--------------------------------------------------------------------------------
+监测Websphere-Server资源占用
+
+http://www.cnblogs.com/sideny/p/3517814.html
+
+--------------------------------------------------------------------------------
+License文件删除后可继续试用
+\IBM\WebSphere\AppServer\properties\was.license

@@ -26,3 +26,4 @@ cd C:\Program Coding\RabbitMQ Server\rabbitmq_server-3.6.6\sbin
 
 WEB控制端网页控制台：http://localhost:15672/
 登录账号默认：guest/guest ，也可使用创建的新账号
+
