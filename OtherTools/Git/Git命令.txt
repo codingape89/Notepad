@@ -1,0 +1,38 @@
+git init
+	初始化git仓库
+
+git status
+	查看git状态
+
+git add
+	向git缓存区(Stage)中添加文件
+
+git commit
+	将暂存区中的定西存储到仓库历史记录中
+	git commit -m "这里写备注"
+
+git log
+	查看以前向仓库中提交的日志
+	git log --pretty=short
+	git log 文件名
+	git log -p 看到文件前后差别
+	git log -p 文件名
+
+git diff
+	查看工作树、暂存区、最新提交之间的区别
+
+git branch
+	查看当前所有分支
+
+git checkout -b
+	创建、切换分支
+
+git remote -v
+	查看所有关联到的远程仓库信息
+
+git remote add 别名 远程仓库地址
+	关联远程仓库
+
+git fetch 别名
+	检出别名仓库分支及各自的更新
+

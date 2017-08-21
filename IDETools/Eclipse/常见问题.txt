@@ -1,0 +1,10 @@
+Maven问题
+	Archive for required library: 'C:/Users/Administrator/.m2/repository/com/amazonaws/aws-java-sdk-iam/1.11.179/aws-java-sdk-iam-1.11.179.jar' in project 'Amazon_S3_Sample' cannot be read or is not a valid ZIP file	Amazon_S3_Sample		Build path	Build Path Problem
+　　1.close project 然后open project。
+　　2.重新启动eclips。
+　　3.去.m2资源库中删除报错的jar包，然后选中项目：右键->Maven4Myeclipse->Update Dependencies,重新下载相关的jar包。
+　　4.如果还报其他jar包的错误，就重复第三条操作。
+
+
+
+

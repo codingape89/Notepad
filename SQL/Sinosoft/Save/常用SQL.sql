@@ -1,4 +1,4 @@
-----²é¿´²Ëµ¥½á¹¹-------------------------------
+----æŸ¥çœ‹èœå•ç»“æ„-------------------------------
 select a.nodecode,a.nodename,a.nodeorder,(case when a.childflag=0 then 'Y' when a.childflag>0 then 'N' else null end)
 ,b.nodecode,b.nodename,b.nodeorder,(case when b.childflag=0 then 'Y' when b.childflag>0 then 'N' else null end)
 ,c.nodecode,c.nodename,c.nodeorder,(case when c.childflag=0 then 'Y' when c.childflag>0 then 'N' else null end)
@@ -13,9 +13,9 @@ left join ldmenu e on d.nodecode=e.parentnodecode
 left join ldmenu f on e.nodecode=f.parentnodecode 
 where a.parentnodecode='0' 
 order by a.nodeorder,b.nodeorder,c.nodeorder,d.nodeorder,e.nodeorder,f.nodeorder;
-----²é¿´²Ëµ¥½á¹¹-------------------------------
+----æŸ¥çœ‹èœå•ç»“æ„-------------------------------
 
-----Start RedMineÏà¹Ø²éÑ¯£¨MySQL£©-------------------------------
+----Start RedMineç›¸å…³æŸ¥è¯¢ï¼ˆMySQLï¼‰-------------------------------
 select * from issues;
 select * from projects;
 
@@ -30,6 +30,22 @@ set subject=CONCAT((SELECT value FROM custom_values where custom_field_id='24' a
 from issues a 
 where project_id='8' 
 and exists (SELECT 1 FROM custom_values where custom_field_id='24' and customized_id=a.id and value<>'');
-----Start RedMineÏà¹Ø²éÑ¯-------------------------------
+----Start RedMineç›¸å…³æŸ¥è¯¢-------------------------------
 
+----Start LAAgentD Backup-------------------------------
+insert into laagentd 
+select '2017-08-07',a.managecom,a.branchtype,a.agentcode,a.agentname,
+a.agentgroup,a.branchattr,a.directflag,a.contracttype,a.contracteffdate,
+a.contractstatus,a.agentstate,a.outworkdate,a.agentgrade,a.gradestartdate,
+a.unitagentgroup,a.unitbranchattr,a.unitmanagercode,
+a.divisionagentgroup,a.divisionbranchattr,a.divisionmanagercode,
+a.regionagentgroup,a.regionbranchattr,a.regionmanagercode,
+'bg',dbo.currentdate(),dbo.currenttime(),dbo.currentdate(),dbo.currenttime(),
+b.leader1st,b.leader2nd,b.leader3rd,b.leader4th,b.leader5th,
+b.leader6th,b.leader7th,b.leader8th,b.leader9th,b.leader10th,
+a.referringagentcode,a.recruitingagentcode 
+from laagentv a left join larelationshipv b 
+on a.agentcode=b.agentcode and b.type='1' 
+where 1=1 
+----End LAAgentD Backup-------------------------------
 

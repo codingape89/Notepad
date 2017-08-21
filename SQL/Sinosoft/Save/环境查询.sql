@@ -1,12 +1,12 @@
-----Start Sql Server²éÑ¯Ëø±í¼°½âËø²Ù×÷-------------------------------
---²éÑ¯±»Ëø±í
+----Start Sql ServeræŸ¥è¯¢é”è¡¨åŠè§£é”æ“ä½œ-------------------------------
+--æŸ¥è¯¢è¢«é”è¡¨
 select request_session_id as spid,OBJECT_NAME(resource_associated_entity_id) as tableName   
 from sys.dm_tran_locks where resource_type='OBJECT'
---½âËø±í
+--è§£é”è¡¨
 declare @spid  int 
-Set @spid  = 53 --Ëø±í½ø³Ì
+Set @spid  = 53 --é”è¡¨è¿›ç¨‹
 declare @sql varchar(1000)
 set @sql='kill '+cast(@spid as varchar)
 exec(@sql)
-----End Sql Server²éÑ¯Ëø±í¼°½âËø²Ù×÷-------------------------------
+----End Sql ServeræŸ¥è¯¢é”è¡¨åŠè§£é”æ“ä½œ-------------------------------
 
